@@ -2,17 +2,19 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <!-- Mobil cihazlar için ekrana tam oturmasını ve uygulama gibi hissettirmesini sağlayan ayar -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Doğum Günüme Gelir Misin?</title>
     <style>
-        /* Koyu Tema (Dark Mode) Ayarları */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212; /* Tam siyah/koyu gri arka plan */
-            color: #ffffff;
+            background-image: url('gokkusagi.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #111111;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -23,43 +25,43 @@
             overflow-x: hidden;
         }
 
-        /* Resim Tasarımı */
         .hamster-img {
             width: 150px;
             height: 150px;
             object-fit: cover;
-            border-radius: 50%; /* Resmi yuvarlak yapar, istersen bu satırı silebilirsin */
+            border-radius: 50%;
             margin-bottom: 20px;
-            border: 3px solid #2a2a2a;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            border: 3px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
-        /* Başlık */
         h1 {
             font-size: 1.8rem;
-            color: #e0e0e0;
+            color: #111111;
             margin-bottom: 35px;
-            font-weight: 600;
+            font-weight: 700;
             padding: 0 20px;
             letter-spacing: 0.5px;
+            text-shadow: 0 1px 4px rgba(255,255,255,0.6);
         }
 
-        /* TELEFON İÇİN SAYAÇ TASARIMI (2x2 Grid Sistemi) */
         .timer-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Telefondan girildiğinde 2 alt, 2 üst kutu olur */
+            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
             width: 85%;
             max-width: 320px;
-            margin-bottom: 90px; /* Alttaki konum yazısıyla karışmaması için boşluk */
+            margin-bottom: 90px;
         }
 
         .time-box {
-            background: #1e1e1e; /* Koyu gri kutu arka planı */
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             padding: 20px 10px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.7);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -70,34 +72,52 @@
             display: block;
             font-size: 2.2rem;
             font-weight: bold;
-            color: #ff6b6b; /* Koyu temada çok şık duran pastel kırmızı/pembe tonu */
+            color: #cc0000;
         }
 
         .time-box .label {
             font-size: 0.85rem;
-            color: #aaaaaa;
+            color: #222222;
             margin-top: 5px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-weight: 600;
         }
 
-        /* Konum bilgisi tasarımı */
-        .location {
+        .bottom-section {
             position: absolute;
             bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .location {
             font-size: 1.1rem;
-            color: #cccccc;
-            background: #1e1e1e;
+            color: #111111;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             padding: 12px 25px;
             border-radius: 10px;
-            border: 1px solid #333;
+            border: 1px solid rgba(255, 255, 255, 0.8);
             letter-spacing: 0.5px;
             width: 75%;
             max-width: 250px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
         }
 
-        /* Tablet veya bilgisayardan girilirse 4'lü yan yana olması için ayar */
+        .location strong {
+            color: #000000;
+        }
+
+        .location.cake {
+            color: #7a3800;
+        }
+
         @media (min-width: 600px) {
             .timer-container {
                 grid-template-columns: repeat(4, 1fr);
@@ -115,13 +135,10 @@
 </head>
 <body>
 
-    <!-- Üzgün hamster resmi -->
     <img src="uzgunhamster.jpg" alt="Üzgün Hamster" class="hamster-img">
     
-    <!-- Başlık -->
     <h1>Doğum Günüme gelir misin</h1>
 
-    <!-- Sayaç -->
     <div class="timer-container" id="countdown">
         <div class="time-box">
             <span id="days">00</span>
@@ -140,16 +157,17 @@
             <div class="label">Saniye</div>
         </div>
     </div>
-    <div style="position: absolute; bottom: 30px; display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%;">
-    <div class="location" style="position: static; color: #ffd966; border-color: #555;">
-        🎂 Gelenlere beleş kek!
+
+    <div class="bottom-section">
+        <div class="location cake">
+            🎂 Gelenlere beleş kek!
+        </div>
+        <div class="location">
+            📍 Konum: <strong>moda 2</strong>
+        </div>
     </div>
-    <div class="location" style="position: static;">
-        📍 Konum: <strong>moda 2</strong>
-    </div>
-    </div>
+
     <script>
-        // Hedef tarih: 1 Temmuz 18:00
         const currentYear = new Date().getFullYear();
         const targetDate = new Date(`July 1, ${currentYear} 18:00:00`).getTime();
 
@@ -157,20 +175,17 @@
             const now = new Date().getTime();
             const distance = targetDate - now;
 
-            // Zaman dolduğunda sayacı durdur ve mesaj göster
             if (distance < 0) {
                 clearInterval(timer);
-                document.getElementById("countdown").innerHTML = "<h2 style='grid-column: span 2; color: #ff6b6b; font-size: 1.5rem;'>Vakit Geldi! Bekliyoruz...</h2>";
+                document.getElementById("countdown").innerHTML = "<h2 style='grid-column: span 2; color: #cc0000; font-size: 1.5rem;'>Vakit Geldi! Bekliyoruz...</h2>";
                 return;
             }
 
-            // Gün, saat, dakika ve saniye hesaplamaları
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Değerleri HTML içine yazdır
             document.getElementById("days").innerText = days.toString().padStart(2, '0');
             document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
             document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
